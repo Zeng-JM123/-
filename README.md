@@ -4,7 +4,9 @@
 `vue create vue-app`
 
 2. 双页面布局
-```<template>
+```
+> default.vue  基础页面模板
+<template>
   <div class="main">
     <div class="nav">
       <Nav/>
@@ -23,3 +25,23 @@
 ```
 
 3. 配置路由
+```
+const routes = [
+  {
+    path: '/',
+    name: 'default',
+    redirect: '/home',
+    component: Default,
+    children: [...]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/login')
+  }
+]
+```
+
+
+
+
