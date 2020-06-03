@@ -45,6 +45,7 @@ const routes = [
 
 4. 封装Axios
 ```
+api/axios.js
 import axios from 'axios'
 import Vue from 'vue'
 
@@ -111,5 +112,61 @@ Vue.prototype.$deletes = deletes;
 Vue.prototype.$put = put;
 ```
 
+5. 封装全局路由跳转方法
+```
+main.js
+// 路由跳转函数
+function jumpPath(path){
+  this.$router.push({
+    path: path
+  })
+}
+Vue.prototype._jumpPath = jumpPath;
 
+// 路由跳转到当前路径的报错解决
+var originalPush = router.push;
+router.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
+```
 
+6. 封装分页组件
+```
+components/pagination
+<template>
+  <div class="block">
+    <el-pagination @current-change="handleCurrentChange"
+                   :current-page="pageNum"
+                   :page-size="+pageSize"
+                   layout="total, prev, pager, next, jumper"
+                   :total="total"
+                   v-if="total">
+    </el-pagination>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      currentPage1: 1,
+    };
+  },
+  props: ['pageSize', 'pageNum', 'total'],
+  methods: {
+    handleCurrentChange (val) {
+      this.$emit('getPageNum', val)
+    }
+  },
+  mounted () {
+    
+  }
+}
+</script>
+```
+
+> 静态资源放在static文件夹下，static不会参与打包，直接放在dist文件夹中
+> nginx部署时，使用mode:history可能会报404
+> 1. 使用mode: hash
+> 2. assetsPublic: ''配置绝对路径
