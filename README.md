@@ -5,7 +5,7 @@
 
 2. 双页面布局
 ```
-> default.vue  基础页面模板
+- default.vue  基础页面模板
 <template>
   <div class="main">
     <div class="nav">
@@ -26,6 +26,7 @@
 
 3. 配置路由
 ```
+- router/index.js
 const routes = [
   {
     path: '/',
