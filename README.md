@@ -4,7 +4,7 @@
 `vue create vue-app`
 
 2. 双页面布局
-```<template>
+``<template>
   <div class="main">
     <div class="nav">
       <Nav/>
@@ -19,6 +19,7 @@
       <Footer/>
     </div>
   </div>
-</template>```
+</template>
+```
 
 3. 配置路由
