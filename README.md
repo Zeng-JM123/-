@@ -166,6 +166,27 @@ export default {
 </script>
 ```
 
+7. 局部刷新组件
+```
+App.vue
+<component v-if="isRouterAlive"></component>
+
+data(){
+  return {
+    isRouterAlive: true
+  }
+},
+methods: {
+  // 控制右侧组件重新加载 
+  reload(){
+    this.isRouterAlive = false;
+    this.$nextTick(() => this.isRouterAlive = true)
+  }
+},
+provide: ['reload']
+```
+
+
 > 静态资源放在static文件夹下，static不会参与打包，直接放在dist文件夹中
 > nginx部署时，使用mode:history可能会报404
 > 1. 使用mode: hash
